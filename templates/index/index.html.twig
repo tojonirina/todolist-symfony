@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %} 
+{% block title %}Welcome{% endblock %} 
+{% block body %}
+    <div class="container bg-dark text-white mt-3 border rounded p-2">
+        <form class="form" method="POST" action="{{ path('todo_add') }}">
+            <input type="text" name="todo" class="form-control mb-2" placeholder="Task title">
+            <textarea type="text" name="description" class="form-control mb-2" placeholder="Task description"></textarea>
+            <button type="submit" class="btn btn-primary"><i class="bi bi-plus-circle"></i> Add task</button>
+        </form>
+    </div>
+    {% for alert in app.flashes('notice') %}
+        <div class="alert alert-success" role="alert">{{ alert }}</div>
+    {% endfor %}
+    <div class="container text-white mt-1 border rounded p-1">
+    {% for todo in todos %}
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center mt-1">
+                <a href="{{ path('todo_show_detail', {id: todo.id }) }}">{{ todo.todo }}</a>
+                <span>
+                    <a href="" class="btn text-primary" title="Add to doing"><i class="bi bi-journal-arrow-down"></i></a>
+                    <a class="btn text-primary" title="Edit todo"><i class="bi bi-pencil-square"></i></a>
+                    <a class="btn text-danger" title="Remove"><i class="bi bi-trash"></i></a>
+                </span>
+            </li>
+        </ul>
+    {% endfor %}
+    </div>
+
+{% endblock %}
